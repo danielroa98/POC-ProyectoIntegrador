@@ -136,8 +136,8 @@ export default function SiteIndex(props) {
                         />
                     </Route>
                 </Switch>
-    )
-}
+            )
+            }
         </Router >
     )
 }
