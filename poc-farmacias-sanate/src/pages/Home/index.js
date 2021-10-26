@@ -12,6 +12,8 @@ import { useStyles } from "./styles";
 
 //Components
 import Navbar from "../../components/Navbar";
+import RecentMedicines from "../../components/RecentMedicine";
+import Footer from "../../components/Footer";
 
 export default function Home(params) {
     const classes = useStyles();
@@ -22,48 +24,18 @@ export default function Home(params) {
             <h1>Bienvenido a las Farmacias Sanate</h1>
             <p>Las mejores farmacias de la Republica</p>
             </Container>
-            <Divider sx={{margin: 3}} />
-            <Box className={classes.recentContainer}>
-                <Card className={classes.recentCard}>
-                <CardContent>
-                    <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-                    Ejemplo
-                    </Typography>
-                </CardContent>
-                </Card>
-
-                <Card className={classes.recentCard}> 
-                <CardContent>
-                    <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-                    Ejemplo
-                    </Typography>
-                </CardContent>
-                </Card>
-
-                <Card className={classes.recentCard}>
-                <CardContent>
-                    <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-                    Ejemplo
-                    </Typography>
-                </CardContent>
-                </Card>
-
-                <Card className={classes.recentCard}>
-                <CardContent>
-                    <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-                    Ejemplo
-                    </Typography>
-                </CardContent>
-                </Card>
-                <Card className={classes.recentCard}>
-                <CardContent>
-                    <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-                    Ejemplo
-                    </Typography>
-                </CardContent>
-                </Card>
-            </Box>
-            <Divider sx={{margin: 3}} />
+            <Divider sx={{margin: 3}}>
+                <Typography variant="h4">Medicinas mas populares</Typography>
+            </Divider>
+                <RecentMedicines/>
+                <Divider sx={{margin: 3}}>
+                <Typography variant="h4">Farmacias cerca de ti</Typography>
+            </Divider>
+                <Box className={classes.mapContainer}>
+                    <img src={'https://media.wired.com/photos/59269cd37034dc5f91bec0f1/191:100/w_1280,c_limit/GoogleMapTA.jpg'} className={classes.mapImg}/>
+                </Box>
+                <Divider sx={{margin: 3}}/>
+            <Footer style={classes.footer} />
         </span>
     )
 }

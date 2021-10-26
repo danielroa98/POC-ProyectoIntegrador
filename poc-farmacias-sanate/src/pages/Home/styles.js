@@ -32,7 +32,28 @@ export const useStyles = makeStyles({
         margin: 'auto',
     },
 
+    mapContainer: {
+        background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
+        maxWidth: '1140px',
+        display: 'flex',
+        height: '500px',
+        justifyContent: 'center',
+        margin: 'auto',
+        padding: 5,
+    },
+
+    mapImg: {
+        maxWidth: '1140px',
+        objectFit: 'cover',
+    },
+
+    footer: {
+        display: 'flex',
+        justifyContent: 'center',
+    },
+
     recentCard: {
-        margin: 10,
+        margin: 20,
+        padding: 20,
     }
   });
