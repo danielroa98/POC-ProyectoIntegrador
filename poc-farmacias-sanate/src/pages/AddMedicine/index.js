@@ -5,7 +5,10 @@ import {
     Box,
     Typography,
     Divider,
-    TextField
+    InputLabel,
+    InputAdornment,
+    FormControl,
+    OutlinedInput
 
 } from '@mui/material';
 import Navbar from '../../components/Navbar';
@@ -16,6 +19,16 @@ import { useStyles } from "./styles";
 export default function AddMedicine(props) {
     const styles = useStyles();
 
+    const [values, setValues] = React.useState({
+        product_price: '',
+        product_name: ''
+      });
+
+    const handleChange = (prop) => (event) => {
+        setValues({ ...values, [prop]: event.target.value });
+        console.log(event.target.value);
+      };
+
     return (
         <span>
             <Navbar/>
@@ -24,13 +37,27 @@ export default function AddMedicine(props) {
 
                 <Box className={styles.formContainer}>
                     <Typography variant="h4">Agregar Medicamento</Typography>
-                    <Divider />
-                    <TextField
-                        required
-                        id="product_name"
-                        label="Nombre"
-                        defaultValue="Nombre del Medicamento..."
+                    <FormControl fullWidth sx={{ m: 1 }}>
+                        <InputLabel htmlFor="name">Nombre del Medicamento</InputLabel>
+                        <OutlinedInput
+                            id="name"
+                            value={values.product_name}
+                            onChange={handleChange('product_name')}
+                            label="Nombre del Medicamente"
+                            size='small'
                         />
+                    </FormControl>
+                    <FormControl fullWidth sx={{ m: 1 }}>
+                        <InputLabel htmlFor="price">Precio Base</InputLabel>
+                        <OutlinedInput
+                            id="price"
+                            value={values.product_price}
+                            onChange={handleChange('product_price')}
+                            startAdornment={<InputAdornment position="start">$</InputAdornment>}
+                            label="Precio Base"
+                            size='small'
+                        />
+                    </FormControl>
                 </Box>
             </Paper>
             </Box>

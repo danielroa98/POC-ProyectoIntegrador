@@ -12,9 +12,13 @@ export const useStyles = makeStyles({
     formContainer: {
         display: 'flex',
         justifyContent: 'center',
-        padding: 3,
+        padding: '10px',
         flexDirection: 'column',
         alignItems: 'center',
+    },
+
+    inputs: {
+        margin: '10px 0 10px 0'
     },
 
     paperForm: {
