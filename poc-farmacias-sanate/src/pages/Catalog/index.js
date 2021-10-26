@@ -10,6 +10,7 @@ export default function Catalog(props) {
         <span>
             <Navbar/>
             <h1>Medicinas uwu</h1>
+            <Button color='primary' href='/add_medicine' variant='contained'>Agregar Medicina</Button>{' '}
         </span>
     );
 }
