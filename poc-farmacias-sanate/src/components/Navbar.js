@@ -14,13 +14,15 @@ export default function Navbar() {
         <Box sx={{ flexGrow: 1 }}>
             <AppBar position="static">
                 <Toolbar>
-                    <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+                    <Typography variant="h5" component="div" sx={{ flexGrow: 1 }}>
                         Farmacias Sanate
                     </Typography>
                     <Toolbar>
-                        <Button color='primary' href='/' variant='contained'>Home</Button>{' '}
-                        <Button color='primary' href='/catalog' variant='contained'>Catalogo</Button>{' '}
-                        <Button color='secondary' href='/checkout' variant='contained'>Checkout</Button>{' '}
+                        <Button color='warning' href='/' variant='contained'>Home</Button>
+                        &nbsp;
+                        <Button color='success' href='/catalog' variant='contained'>Catalogo</Button>
+                        &nbsp;
+                        <Button color='secondary' href='/checkout' variant='contained'>Checkout</Button>
                         {/* <Button variant='contained' color='error'>Logout 2</Button>{' '}
                         <Button variant='contained' color='error'>Logout 3</Button>{' '} */}
                     </Toolbar>
