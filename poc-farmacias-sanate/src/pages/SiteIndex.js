@@ -6,10 +6,11 @@ import getFirebase from "../firebase/configFirebase";
 
 //Pages or Sites
 import CheckOut from "./CheckOut";
-import Home from "./Home";
+import Home from "./Home/index";
 import Login from "./Login";
 import Logout from "./Logout";
 import SignUp from "./SignUp";
+import Catalog from "./Catalog";
 
 export default function SiteIndex(props) {
     const firebase = getFirebase();
@@ -88,6 +89,13 @@ export default function SiteIndex(props) {
                     </Route>
                     <Route exact path={'/checkout'}>
                         <CheckOut
+                            firebase={props.firebase}
+                            signUpSubmit={signUpSubmit}
+                            history={props.history}
+                        />
+                    </Route>
+                    <Route exact path={'/catalog'}>
+                        <Catalog
                             firebase={props.firebase}
                             signUpSubmit={signUpSubmit}
                             history={props.history}

@@ -19,6 +19,7 @@ export default function Navbar() {
                     </Typography>
                     <Toolbar>
                         <Button color='primary' href='/' variant='contained'>Home</Button>{' '}
+                        <Button color='primary' href='/catalog' variant='contained'>Catalogo</Button>{' '}
                         <Button color='secondary' href='/checkout' variant='contained'>Checkout</Button>{' '}
                         {/* <Button variant='contained' color='error'>Logout 2</Button>{' '}
                         <Button variant='contained' color='error'>Logout 3</Button>{' '} */}
