@@ -24,6 +24,11 @@ function App(props) {
         if (authUser) {
           getCurrentUser(authUser.email);
           console.log('Session is live');
+
+          // aqui!
+          // db.ref(clientes) where (id == authUser.uid)
+          
+
           await setUser({
             displayName: authUser.displayName,
             uid: authUser.uid,

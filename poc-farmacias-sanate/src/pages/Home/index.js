@@ -21,6 +21,9 @@ import getFirebase from "../../firebase/configFirebase";
 import Navbar from "../../components/Navbar";
 import RecentMedicines from "../../components/RecentMedicine";
 import Footer from "../../components/Footer";
+import InventoryCards from "../../components/InventoryCards";
+import CardActions from '@mui/material/CardActions';
+import CardMedia from '@mui/material/CardMedia';
 
 const names = [
     'Antonio Junco',
@@ -40,48 +43,75 @@ export default function Home(params) {
     const firebase = getFirebase();
 
     const [tienda, setTienda] = React.useState('');
-
-    
-    React.useEffect(() => {
-      try {
-        const db = firebase.firestore();
-        const tiendasCollection = db.collection('Tiendas');
-        
-        console.log(params.userData)
-        const doc = tiendasCollection.where('client_id', '==', params.userData.uid).get()
-        .then( snapshot => {
-          snapshot.forEach(doc => {
-            console.log(doc.data())
-          })
-        });
-        } catch (error) {
-          console.log(error)
-        }
-      },[params]);
-
-    
+    const [inventario, setInventario] = React.useState();
+    const mounted = React.useRef(false);
 
       const handleChange = (event) => {
         setTienda(event.target.value);
         console.log(tienda);
       };
+
     
+      React.useEffect(() => {
+        mounted.current = true;
+        
+        try {
+          const db = firebase.firestore();
+          const tiendasCollection = db.collection('Tiendas');
+          const doc = tiendasCollection.where('client_id', '==', params.userData.uid).get()
+          .then( snapshot => {
+            snapshot.forEach(async doc => {
+              //console.log(doc.data().inventory)
+              let inv = [];
+              doc.data().inventory.map(entry => {
+                entry.product.get().then(res => {
+                  inv.push({
+                    product: res.data(),
+                    quantity: entry.quantity
+                  });
+                })
+              })
+              setInventario(inv);
+              
+            })
+          });
+        } catch (error) {
+          console.log(error)
+        }
+
+        console.log(inventario)
+
+            },[params]);
+
+
     return(
-        <span>
-            <Navbar userData={params.userData}/>
-            <Container className={classes.homeContainer}>
-            <h1>Bienvenido a las Farmacias Sanate</h1>
-            <p>Las mejores farmacias de la Republica</p>
-            </Container>
+      <>
+      <div>
+          <Navbar userData={params.userData}/>
+          <Container className={classes.homeContainer}>
+          <h1>Bienvenido a las Farmacias Sanate</h1>
+          <p>Las mejores farmacias de la Republica</p>
+          </Container>
+
+          {params.userData.admin ?
+          
+            (<>
             <Divider sx={{margin: 3}}>
-              {params.userData.admin ? 
-              (<>
-              <Typography variant="h4">Mi Inventario</Typography>
-              </>) 
-              : 
-              (
+            <Typography variant="h4">Mi Inventario</Typography>
+            </Divider>
+
+            <Box>
+            {inventario && <InventoryCards inventario={inventario} />}
+            </Box>
+            </>)
+
+            :
+
+            (
               <>
+              <Divider sx={{margin: 3}}>
               <Typography variant="h4">Buscar Medicinas</Typography>
+              </Divider>
               <FormControl fullWidth>
               <InputLabel variant="standard" htmlFor="uncontrolled-native">
                   Tienda
@@ -99,9 +129,10 @@ export default function Home(params) {
               </Select>
               </FormControl>
               </>
-              )}
-                
-            </Divider>
-        </span>
+              )
+
+          }
+      </div>
+      </>
     )
 }
