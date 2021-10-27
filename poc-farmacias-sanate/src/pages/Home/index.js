@@ -42,19 +42,22 @@ export default function Home(params) {
     const [tienda, setTienda] = React.useState('');
 
     
-    React.useEffect(async () => {
-      const db = firebase.firestore();
-      const tiendasCollection = db.collection('Tiendas');
-      
-      console.log(params.userData)
-      const doc = await tiendasCollection.where('client_id', '==', params.userData.uid).get()
-      .then( snapshot => {
-        snapshot.forEach(doc => {
-          console.log(doc.data())
-        })
-      });
-
-    },[]);
+    React.useEffect(() => {
+      try {
+        const db = firebase.firestore();
+        const tiendasCollection = db.collection('Tiendas');
+        
+        console.log(params.userData)
+        const doc = tiendasCollection.where('client_id', '==', params.userData.uid).get()
+        .then( snapshot => {
+          snapshot.forEach(doc => {
+            console.log(doc.data())
+          })
+        });
+        } catch (error) {
+          console.log(error)
+        }
+      },[params]);
 
     
 
