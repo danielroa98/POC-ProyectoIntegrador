@@ -5,6 +5,7 @@ import './CheckOut.css'
 
 //Components
 import Navbar from '../components/Navbar';
+import ReactCard from '../components/ReactCard';
 
 export default function CheckOut() {
     return (
@@ -26,6 +27,7 @@ export default function CheckOut() {
                     >
                         <CardContent>
                             <h2>Form of payment</h2>
+                            <ReactCard />
                         </CardContent>
                     </Card>
                 </Grid>
