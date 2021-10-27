@@ -3,7 +3,7 @@ import { Box, FormControl, Input, MonthPicker, TextField, YearPicker } from "@mu
 import Cards from "react-credit-cards";
 import "react-credit-cards/es/styles-compiled.css";
 
-import './ReactCard.css';
+import './ReactCreditCard.css';
 
 export default function ReactCreditCard() {
 

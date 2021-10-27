@@ -4,6 +4,7 @@ import { Button, ButtonGroup, Card, CardContent, Grid } from '@mui/material';
 import './CheckOut.css'
 
 //Components
+import AddressForm from '../components/AddressForm';
 import Navbar from '../components/Navbar';
 import PayAtHomeForm from '../components/PayAtHomeForm';
 import PayAtStore from '../components/PayAtStore';
@@ -24,7 +25,8 @@ export default function CheckOut(params) {
                         raised={true}
                     >
                         <CardContent>
-                            <h2>Dirección</h2>
+                            <h2>Nueva Dirección</h2>
+                            <AddressForm userData={params.userData} />
                         </CardContent>
                     </Card>
                     <br />
