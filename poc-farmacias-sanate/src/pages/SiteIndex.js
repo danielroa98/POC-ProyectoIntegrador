@@ -85,6 +85,7 @@ export default function SiteIndex(props) {
                             firebase={props.firebase}
                             signUpSubmit={signUpSubmit}
                             history={props.history}
+                            userData={props.userData}
                         />
                     </Route>
                     <Route exact path={'/checkout'}>
@@ -92,6 +93,7 @@ export default function SiteIndex(props) {
                             firebase={props.firebase}
                             signUpSubmit={signUpSubmit}
                             history={props.history}
+                            userData={props.userData}
                         />
                     </Route>
                     <Route path={'/logout'}>
@@ -99,6 +101,7 @@ export default function SiteIndex(props) {
                             signOut={signOut}
                             firebase={props.firebase}
                             history={props.history}
+                            userData={props.userData}
                         />
                     </Route>
                     <Route path={'/add_medicine'}>
@@ -106,6 +109,7 @@ export default function SiteIndex(props) {
                             signOut={signOut}
                             firebase={props.firebase}
                             history={props.history}
+                            userData={props.userData}
                         />
                     </Route>
                 </Switch>

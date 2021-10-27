@@ -7,10 +7,10 @@ import './CheckOut.css'
 import Navbar from '../components/Navbar';
 import ReactCard from '../components/ReactCard';
 
-export default function CheckOut() {
+export default function CheckOut(params) {
     return (
         <span>
-            <Navbar />
+            <Navbar userData={params.userData}/>
             <h1>Check Out</h1>
             <Grid container spacing={2}>
                 <Grid item xs={7}>

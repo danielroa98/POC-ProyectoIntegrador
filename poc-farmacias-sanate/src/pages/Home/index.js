@@ -41,14 +41,22 @@ export default function Home(params) {
 
     const [tienda, setTienda] = React.useState('');
 
-    firebase.auth().onAuthStateChanged((user) => {
-        if (user) {
-          // User logged in already or has just logged in.
-          console.log(user);
-        } else {
-          // User not logged in or has just logged out.
-        }
+    
+    React.useEffect(async () => {
+      const db = firebase.firestore();
+      const tiendasCollection = db.collection('Tiendas');
+      
+      console.log(params.userData)
+      const doc = await tiendasCollection.where('client_id', '==', params.userData.uid).get()
+      .then( snapshot => {
+        snapshot.forEach(doc => {
+          console.log(doc.data())
+        })
       });
+
+    },[]);
+
+    
 
       const handleChange = (event) => {
         setTienda(event.target.value);
@@ -57,29 +65,39 @@ export default function Home(params) {
     
     return(
         <span>
-            <Navbar />
+            <Navbar userData={params.userData}/>
             <Container className={classes.homeContainer}>
             <h1>Bienvenido a las Farmacias Sanate</h1>
             <p>Las mejores farmacias de la Republica</p>
             </Container>
             <Divider sx={{margin: 3}}>
-                <Typography variant="h4">Buscar Medicinas</Typography>
-                <FormControl fullWidth>
-                <InputLabel variant="standard" htmlFor="uncontrolled-native">
-                    Tienda
-                </InputLabel>
-                <Select
-                    labelId="demo-simple-select-label"
-                    id="demo-simple-select"
-                    value={tienda}
-                    label="Tienda"
-                    onChange={handleChange}
-                >
-                    {names.map(tienda => (
-                        <MenuItem key={tienda} value={tienda}>{tienda}</MenuItem>
-                    ))}  
-                </Select>
-                </FormControl>
+              {params.userData.admin ? 
+              (<>
+              <Typography variant="h4">Mi Inventario</Typography>
+              </>) 
+              : 
+              (
+              <>
+              <Typography variant="h4">Buscar Medicinas</Typography>
+              <FormControl fullWidth>
+              <InputLabel variant="standard" htmlFor="uncontrolled-native">
+                  Tienda
+              </InputLabel>
+              <Select
+                  labelId="demo-simple-select-label"
+                  id="demo-simple-select"
+                  value={tienda}
+                  label="Tienda"
+                  onChange={handleChange}
+              >
+                  {names.map(tienda => (
+                      <MenuItem key={tienda} value={tienda}>{tienda}</MenuItem>
+                  ))}  
+              </Select>
+              </FormControl>
+              </>
+              )}
+                
             </Divider>
         </span>
     )
