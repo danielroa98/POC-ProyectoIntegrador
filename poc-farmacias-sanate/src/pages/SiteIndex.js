@@ -10,7 +10,6 @@ import Home from "./Home/index";
 import Login from "./Login";
 import Logout from "./Logout";
 import SignUp from "./SignUp";
-import Catalog from "./Catalog";
 import AddMedicine from "./AddMedicine";
 
 export default function SiteIndex(props) {
@@ -90,13 +89,6 @@ export default function SiteIndex(props) {
                     </Route>
                     <Route exact path={'/checkout'}>
                         <CheckOut
-                            firebase={props.firebase}
-                            signUpSubmit={signUpSubmit}
-                            history={props.history}
-                        />
-                    </Route>
-                    <Route exact path={'/catalog'}>
-                        <Catalog
                             firebase={props.firebase}
                             signUpSubmit={signUpSubmit}
                             history={props.history}

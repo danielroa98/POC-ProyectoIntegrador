@@ -21,7 +21,9 @@ export default function AddMedicine(props) {
 
     const [values, setValues] = React.useState({
         product_price: '',
-        product_name: ''
+        product_name: '',
+        product_id: '',
+        
       });
 
     const handleChange = (prop) => (event) => {
