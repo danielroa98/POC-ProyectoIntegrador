@@ -1,7 +1,9 @@
 import * as React from 'react';
-import { Button, ButtonGroup, Card, CardContent, Grid } from '@mui/material';
+import { Button, ButtonGroup, Card, CardContent, Grid, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
 
 import './CheckOut.css'
+
+import getFirebase from '../firebase/configFirebase';
 
 //Components
 import AddressForm from '../components/AddressForm';
@@ -11,9 +13,35 @@ import PayAtStore from '../components/PayAtStore';
 import ReactCreditCard from '../components/ReactCreditCard';
 
 export default function CheckOut(params) {
+    const firebase = getFirebase();
+
     const [showCard, setShowCard] = React.useState(false);
     const [showHome, setShowHome] = React.useState(false);
     const [showStore, setShowStore] = React.useState(false);
+
+    const [userAddresses, setUserAddresses] = React.useState([]);
+
+    const currentUserID = params.userData.uid;
+
+    React.useEffect(() => {
+
+        const getUserAddresses = async () => {
+            try {
+                const db = firebase.firestore();
+                const addressSnapshot = await db.collection('Addresses').where('client_id', '==', params.userData.uid).get()
+                    .then(snapshot => {
+                        snapshot.forEach(doc => {
+                            console.log(doc.data())
+                        })
+                    });
+            } catch (error) {
+                console.log(error);
+            }
+        }
+
+        getUserAddresses();
+
+    }, [params])
 
     return (
         <span>
@@ -27,6 +55,25 @@ export default function CheckOut(params) {
                         <CardContent>
                             <h2>Nueva Dirección</h2>
                             <AddressForm userData={params.userData} />
+                            <h2>Direcciones existentes</h2>
+                            <Card style={{
+                                border: 'none',
+                                boxShadow: 'none'
+                            }}>
+                                <CardContent>
+                                    <Table aria-label='simple table'>
+                                        <TableHead>
+                                            <TableRow>
+                                                <TableCell>Dirección</TableCell>
+                                                <TableCell>Opciones</TableCell>
+                                            </TableRow>
+                                        </TableHead>
+                                        <TableBody>
+
+                                        </TableBody>
+                                    </Table>
+                                </CardContent>
+                            </Card>
                         </CardContent>
                     </Card>
                     <br />

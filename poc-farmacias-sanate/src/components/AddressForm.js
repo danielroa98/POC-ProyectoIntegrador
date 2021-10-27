@@ -1,40 +1,64 @@
 import * as React from 'react';
-import { Button, FormControl, TextField } from '@mui/material';
+import { Button, FormControl, Grid, TextField } from '@mui/material';
 
 import getFirebase from '../firebase/configFirebase';
 
 export default function AddressForm(params) {
-    const defaultAddress = {
-        userID: params.userData.uid,
-        direccion: '',
-        ciudad: '',
-        estado: '',
-        cp: ''
+
+    const [address, setAddress] = React.useState('');
+    const [city, setCity] = React.useState('');
+    const [state, setState] = React.useState('');
+    const [postalCode, setpostalCode] = React.useState('');
+
+    const handleSubmit = e => {
+        e.preventDefault();
+
+        const firebase = getFirebase();
+        const db = firebase.firestore();
+        const addressCollection = db.collection('Addresses');
+        const clientCollection = db.collection('Client');
+        const clientReference = clientCollection.doc(params.userData.uid);
+     
+        try {
+
+            const newAddress = {
+                client_id: params.userData.uid,
+                Street: address,
+                City: city,
+                State: state,
+                PostalCode: postalCode
+            };
+
+            const res = addressCollection.add(newAddress);
+
+            console.log('Added doc correctly');
+        } catch (error) {
+            console.log(error);
+        }
     }
 
-    const [newAddress, setNewAddress] = React.useState(defaultAddress);
+    // console.log(params.userData.uid);
 
-    const handleInputChange = (e) => {
-        const { name, value } = e.target;
-        setNewAddress({
-            ...newAddress,
-            [name]: value,
-        });
-        console.log(defaultAddress, '\n NewAddress', newAddress);
-    };
-
-    console.log(params.userData.uid);
-    // console.log(defaultAddress);
-    console.log(defaultAddress, '\nNewAddress', newAddress);
-
-    return(
+    return (
         <div>
-            <FormControl>
-                <TextField fullWidth required label='Dirección' variant='standard' />
-                <TextField fullWidth required label='Ciudad' variant='standard' />
-                <TextField fullWidth required label='Estado' variant='standard' />
-                <TextField fullWidth required label='Código postal' variant='standard' type='number' />
-            </FormControl>
+            <form onSubmit={handleSubmit}>
+                <Grid>
+                    <Grid item xs={10}>
+                        <TextField fullWidth required label='Dirección' variant='standard' onChange={e => setAddress(e.target.value)} />
+                    </Grid>
+                    <Grid item xs={4}>
+                        <TextField fullWidth required label='Ciudad' variant='standard' onChange={e => setCity(e.target.value)} />
+                    </Grid>
+                    <Grid item xs={4}>
+                        <TextField fullWidth required label='Estado' variant='standard' onChange={e => setState(e.target.value)} />
+                    </Grid>
+                    <Grid item xs={4}>
+                        <TextField fullWidth required label='Código postal' variant='standard' type='number' onChange={e => setpostalCode(e.target.value)} />
+                    </Grid>
+                </Grid>
+                <br />
+                <Button type='submit' variant='contained' color='success'>Añadir dirección</Button>
+            </form>
         </div>
     )
 }
