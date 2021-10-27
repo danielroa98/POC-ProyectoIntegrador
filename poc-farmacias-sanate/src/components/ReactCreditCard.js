@@ -5,7 +5,7 @@ import "react-credit-cards/es/styles-compiled.css";
 
 import './ReactCard.css';
 
-export default function ReactCard() {
+export default function ReactCreditCard() {
 
     const [data, setData] = useState({
         cvc: '',

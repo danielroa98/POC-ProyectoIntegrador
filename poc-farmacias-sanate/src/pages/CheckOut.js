@@ -1,16 +1,22 @@
-import React from 'react';
-import { Button, Card, CardContent, Grid } from '@mui/material';
+import * as React from 'react';
+import { Button, ButtonGroup, Card, CardContent, Grid } from '@mui/material';
 
 import './CheckOut.css'
 
 //Components
 import Navbar from '../components/Navbar';
-import ReactCard from '../components/ReactCard';
+import PayAtHomeForm from '../components/PayAtHomeForm';
+import PayAtStore from '../components/PayAtStore';
+import ReactCreditCard from '../components/ReactCreditCard';
 
 export default function CheckOut(params) {
+    const [showCard, setShowCard] = React.useState(false);
+    const [showHome, setShowHome] = React.useState(false);
+    const [showStore, setShowStore] = React.useState(false);
+
     return (
         <span>
-            <Navbar userData={params.userData}/>
+            <Navbar userData={params.userData} />
             <h1>Check Out</h1>
             <Grid container spacing={2}>
                 <Grid item xs={7}>
@@ -18,7 +24,7 @@ export default function CheckOut(params) {
                         raised={true}
                     >
                         <CardContent>
-                            <h2>Address</h2>
+                            <h2>Dirección</h2>
                         </CardContent>
                     </Card>
                     <br />
@@ -26,17 +32,43 @@ export default function CheckOut(params) {
                         raised={true}
                     >
                         <CardContent>
-                            <h2>Form of payment</h2>
-                            <ReactCard />
+                            <h2>Escoja su método de pago</h2>
+                            <Button variant='contained' onClick={() => {
+                                setShowCard(prev => !prev);
+                                setShowHome(false);
+                                setShowStore(false);
+                            }}>
+                                Tarjeta
+                            </Button> &nbsp;
+                            <Button variant='contained' onClick={() => {
+                                setShowHome(prev => !prev);
+                                setShowCard(false);
+                                setShowStore(false)
+                            }}>
+                                Pagar en casa
+                            </Button>&nbsp;
+                            <Button variant='contained' onClick={() => {
+                                setShowStore(prev => !prev);
+                                setShowCard(false);
+                                setShowHome(false);
+                            }}>
+                                Pagar en sucursal
+                            </Button>&nbsp;
+                            {showCard && <ReactCreditCard />}
+                            {showHome && <PayAtHomeForm />}
+                            {showStore && <PayAtStore />}
                         </CardContent>
                     </Card>
                 </Grid>
                 <Grid item xs={4}>
                     <Card
-                        raised={true}
+                        style={{
+                            border: 'none',
+                            boxShadow: 'none'
+                        }}
                     >
                         <CardContent>
-                            <h2>My order</h2>
+                            <h2>Mi pedido</h2>
                         </CardContent>
                     </Card>
                     <div className='accept-checkout'>
@@ -44,7 +76,7 @@ export default function CheckOut(params) {
                             color='success'
                             variant='contained'
                         >
-                            Accept
+                            Realizar pedido
                         </Button>
                     </div>
                 </Grid>
