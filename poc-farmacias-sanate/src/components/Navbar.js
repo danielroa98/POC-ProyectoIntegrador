@@ -16,40 +16,22 @@ export default function Navbar(params) {
 
     return (
         <>
-        {params.userData.admin ? 
-        (
-            <Box sx={{ flexGrow: 1}}>
-            <AppBar position="static" sx={{background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)'}} >
-                <Toolbar >
-                    <Typography variant="h5" component="div" sx={{ flexGrow: 1, fontWeight: 'bolder' }}>
-                        Farmacias Sanate (Tienda {params.userData.displayName})
-                    </Typography>
-                    <Toolbar>
-                        <Button color='warning' href='/' variant='contained'>Home</Button>
-                        &nbsp;
-                        <Button color='warning' href='/' variant='contained'>Transferir</Button>
-                        <Button variant='contained' color='secondary' sx={{margin:2}}>Mis Ordenes</Button>
-                        {/* <Button variant='contained' color='error'>Logout 2</Button>{' '}
             {params.userData.admin ?
                 (
                     <Box sx={{ flexGrow: 1 }}>
-                        <AppBar position="static">
-                            <Toolbar>
-                                <Typography variant="h5" component="div" sx={{ flexGrow: 1 }}>
-                                    Farmacias Sanate (Tienda)
+                        <AppBar position="static" sx={{ background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)' }} >
+                            <Toolbar >
+                                <Typography variant="h5" component="div" sx={{ flexGrow: 1, fontWeight: 'bolder' }}>
+                                    Farmacias Sanate (Tienda {params.userData.displayName})
                                 </Typography>
                                 <Toolbar>
                                     <Button color='warning' href='/' variant='contained'>Home</Button>
                                     &nbsp;
                                     <Button color='warning' href='/' variant='contained'>Transferir</Button>
                                     <Button variant='contained' href='/my-orders' color='secondary' sx={{ margin: 2 }}>Mis Ordenes</Button>
-                                    {/* <Button variant='contained' color='error'>Logout 2</Button>{' '}
-                        <Button variant='contained' color='error'>Logout 3</Button>{' '} */}
                                 </Toolbar>
-
                                 <Button variant='contained' color='secondary' sx={{ margin: 2 }}>{params.userData.displayName}</Button>
                                 <Button variant='contained' color='error' href='/logout'>Logout</Button>
-
                             </Toolbar>
                         </AppBar>
                     </Box>
@@ -68,8 +50,6 @@ export default function Navbar(params) {
                                     <Button color='secondary' href='/checkout' variant='contained'>Checkout</Button>
                                     &nbsp;
                                     <Button color='secondary' href='/my-orders' variant='contained'>Mis Ordenes</Button>
-                                    {/* <Button variant='contained' color='error'>Logout 2</Button>{' '}
-                        <Button variant='contained' color='error'>Logout 3</Button>{' '} */}
                                 </Toolbar>
 
                                 <Button variant='contained' color='secondary' sx={{ margin: 2 }}>{params.userData.displayName}</Button>

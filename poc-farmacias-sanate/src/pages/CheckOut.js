@@ -71,33 +71,9 @@ export default function CheckOut(params) {
 
                 setLoading(false);
             } catch (error) {
-                
+                console.log(error);
             }
         }
-
-        //let userAddresses = [];
-        /*
-        try {
-            
-
-            const addressSnapshot = addressColl.where('client_id', '==', params.userData.uid).get()
-                .then(snapshot => {
-                    snapshot.docs.forEach(address => {
-                        let currentAddressID = address.id;
-                        let addrObj = { ...address.data(), ['id']: currentAddressID }
-
-                        userAddresses.push(addrObj);
-                        userAddresses.push(address.data());
-
-                        console.log(userAddresses);
-                    })
-                    setAddressInfo(userAddresses);
-                });
-
-        } catch (error) {
-            console.log(error);
-        }*/
-        // getUserAddresses();
         fetchData();
     }, [params])
 
