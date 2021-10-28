@@ -16,6 +16,7 @@ import { useStyles } from "./styles";
 
 // Custom Components
 import getFirebase from "../../firebase/configFirebase";
+import getInventory from "../../functions/GetInventories";
 
 //Components
 import Navbar from "../../components/Navbar";
@@ -43,45 +44,12 @@ export default function Home(params) {
     const firebase = getFirebase();
 
     const [tienda, setTienda] = React.useState('');
-    const [inventario, setInventario] = React.useState();
-    const mounted = React.useRef(false);
+    const [inventario, setInventario] = React.useState([]);
 
       const handleChange = (event) => {
         setTienda(event.target.value);
         console.log(tienda);
       };
-
-    
-      React.useEffect(() => {
-        mounted.current = true;
-        
-        try {
-          const db = firebase.firestore();
-          const tiendasCollection = db.collection('Tiendas');
-          const doc = tiendasCollection.where('client_id', '==', params.userData.uid).get()
-          .then( snapshot => {
-            snapshot.forEach(async doc => {
-              //console.log(doc.data().inventory)
-              let inv = [];
-              doc.data().inventory.map(entry => {
-                entry.product.get().then(res => {
-                  inv.push({
-                    product: res.data(),
-                    quantity: entry.quantity
-                  });
-                })
-              })
-              setInventario(inv);
-              
-            })
-          });
-        } catch (error) {
-          console.log(error)
-        }
-
-        console.log(inventario)
-
-            },[params]);
 
 
     return(
@@ -99,10 +67,7 @@ export default function Home(params) {
             <Divider sx={{margin: 3}}>
             <Typography variant="h4">Mi Inventario</Typography>
             </Divider>
-
-            <Box>
-            {inventario && <InventoryCards inventario={inventario} />}
-            </Box>
+              <InventoryCards userData = {params.userData}/>
             </>)
 
             :

@@ -13,16 +13,58 @@ import { Box } from "@mui/material";
 
 export default function InventoryCards(props){
     
-    console.log(props.inventario)
+    const [inventario, setInventario] = React.useState([]);
+    const [loading, setLoading] = React.useState(true);
+    const firebase = getFirebase();
+    const db = firebase.firestore();
+    const tiendasCollection = db.collection('Tiendas');
+
 
     useEffect(() => {
+
+        const fetchData = async() => {
+            let inv = [];
+            try {
+                const snapshot = tiendasCollection.where('client_id', '==', props.userData.uid).get()
+                .then(docs => {
+                    docs.forEach(doc => {
+                        console.log(doc.id, '=>', doc.data());
+                        const data = doc.data();
+                        data.inventory.forEach(entry => {
+                            console.log(entry)
+                            const product = entry.product.get()
+                            .then(medicamentos => {
+                                console.log(medicamentos.data())
+                                setInventario( inventario => [...inventario, {
+                                    "product": medicamentos.data(),
+                                    "quantity": entry.quantity
+                                  }]);
+                            })
+                        })
+                      });
+                })
+
+                //setInventario(inv)
+                setLoading(false);
         
-    },[props.inventario])
+              } catch(err) {
+                console.error(err);
+            }
+
+        };
+
+        fetchData();
+
+    }, []);
+
+    console.log(inventario)
 
     return(
         <>
-        <Box>
-        {props.inventario.map((entry) =>(
+        {loading ? (<p>Loading...</p>) : 
+        (
+        <div style={{height: '100px'}}>
+        {inventario.map(entry => (
             <Card key={entry.product.Name} sx={{maxWidth: 345}}>
                 <CardMedia
                     component="img"
@@ -39,7 +81,8 @@ export default function InventoryCards(props){
                 </CardContent>
             </Card>
         ))}
-        </Box>
+        </div>)}
+        
         </>
     )
 }
