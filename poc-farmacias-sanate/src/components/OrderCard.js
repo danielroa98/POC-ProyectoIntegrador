@@ -144,6 +144,7 @@ export default function OrderCard(params) {
                             )}
                         </>
                     ) : (
+                        // TODO - implementar esta seccion.
                         <Card style={{
                             width: '800px',
                             alignContent: 'center',

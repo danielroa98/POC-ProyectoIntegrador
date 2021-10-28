@@ -1,5 +1,17 @@
 import * as React from 'react';
-import { Button, ButtonGroup, Card, CardContent, Grid, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
+import { 
+    Button, 
+    ButtonGroup, 
+    Card, 
+    CardContent, 
+    Grid, 
+    Table, 
+    TableBody, 
+    TableCell, 
+    TableContainer, 
+    TableHead, 
+    TableRow 
+} from '@mui/material';
 
 import './CheckOut.css'
 

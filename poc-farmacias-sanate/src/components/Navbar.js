@@ -27,7 +27,7 @@ export default function Navbar(params) {
                                 <Toolbar>
                                     <Button color='warning' href='/' variant='contained'>Home</Button>
                                     &nbsp;
-                                    <Button color='warning' href='/' variant='contained'>Transferir</Button>
+                                    <Button color='warning' href='/transferencias' variant='contained'>Transferir</Button>
                                     <Button variant='contained' href='/my-orders' color='secondary' sx={{ margin: 2 }}>Mis Ordenes</Button>
                                 </Toolbar>
                                 <Button variant='contained' color='secondary' sx={{ margin: 2 }}>{params.userData.displayName}</Button>

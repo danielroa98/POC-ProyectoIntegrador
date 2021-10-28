@@ -12,6 +12,7 @@ import Logout from "./Logout";
 import SignUp from "./SignUp";
 import AddMedicine from "./AddMedicine";
 import Orders from "./Orders";
+import Transfers from "./Transfers";
 
 export default function SiteIndex(props) {
     const firebase = getFirebase();
@@ -97,14 +98,6 @@ export default function SiteIndex(props) {
                             userData={props.userData}
                         />
                     </Route>
-                    <Route path={'/logout'}>
-                        <Logout
-                            signOut={signOut}
-                            firebase={props.firebase}
-                            history={props.history}
-                            userData={props.userData}
-                        />
-                    </Route>
                     <Route path={'/add_medicine'}>
                         <AddMedicine
                             signOut={signOut}
@@ -115,6 +108,22 @@ export default function SiteIndex(props) {
                     </Route>
                     <Route path={'/my-orders'}>
                         <Orders
+                            signOut={signOut}
+                            firebase={props.firebase}
+                            history={props.history}
+                            userData={props.userData}
+                        />
+                    </Route>
+                    <Route path={'/transferencias'}>
+                        <Transfers
+                            signOut={signOut}
+                            firebase={props.firebase}
+                            history={props.history}
+                            userData={props.userData}
+                        />
+                    </Route>
+                    <Route path={'/logout'}>
+                        <Logout
                             signOut={signOut}
                             firebase={props.firebase}
                             history={props.history}
