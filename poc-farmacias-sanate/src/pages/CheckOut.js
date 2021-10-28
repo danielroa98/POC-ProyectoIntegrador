@@ -25,6 +25,7 @@ export default function CheckOut(params) {
 
     const [addressInfo, setAddressInfo] = React.useState([]);
     const [addressTest, setAddressTest] = React.useState([]);
+    const [loading, setLoading] = React.useState(true);
 
     const [order, setOrder] = React.useState({
         client_id: currentUserID,
@@ -56,7 +57,6 @@ export default function CheckOut(params) {
     React.useEffect(() => {
 
         const fetchData = async() => {
-            let userAddresses = [];
 
             try {
                 const snapshot = addressColl.where('client_id', '==', currentUserID).get()
@@ -64,17 +64,19 @@ export default function CheckOut(params) {
                         docs.forEach(doc => {
                             const data = doc.data();
                             console.log(data);
-                            setAddressTest(data);
+                            setAddressTest(addressTest =>[...addressTest, data] );
                             console.log(addressTest);
                         })
-                    })
+                    });
+
+                setLoading(false);
             } catch (error) {
                 
             }
         }
 
-        let userAddresses = [];
-
+        //let userAddresses = [];
+        /*
         try {
             
 
@@ -94,7 +96,7 @@ export default function CheckOut(params) {
 
         } catch (error) {
             console.log(error);
-        }
+        }*/
         // getUserAddresses();
         fetchData();
     }, [params])
@@ -116,7 +118,8 @@ export default function CheckOut(params) {
                                 border: 'none',
                                 boxShadow: 'none'
                             }}>
-                                <CardContent>
+                                {loading ? (<p>Loading...</p>) : (
+                                    <CardContent>
                                     <Table aria-label='simple table'>
                                         <TableHead>
                                             <TableRow>
@@ -125,7 +128,7 @@ export default function CheckOut(params) {
                                             </TableRow>
                                         </TableHead>
                                         <TableBody>
-                                            {addressInfo.map(e =>
+                                            {addressTest.map(e =>
                                                 <TableRow>
                                                     <TableCell>
                                                         {e.Street}, {e.City}, {e.State}, {e.PostalCode}
@@ -142,6 +145,7 @@ export default function CheckOut(params) {
                                         </TableBody>
                                     </Table>
                                 </CardContent>
+                                )}
                             </Card>
                         </CardContent>
                     </Card>
