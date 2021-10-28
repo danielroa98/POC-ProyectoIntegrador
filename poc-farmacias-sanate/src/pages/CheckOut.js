@@ -14,33 +14,66 @@ import ReactCreditCard from '../components/ReactCreditCard';
 
 export default function CheckOut(params) {
     const firebase = getFirebase();
+    const currentUserID = params.userData.uid;
 
     const [showCard, setShowCard] = React.useState(false);
     const [showHome, setShowHome] = React.useState(false);
     const [showStore, setShowStore] = React.useState(false);
 
-    const [userAddresses, setUserAddresses] = React.useState([]);
+    const [addressInfo, setAddressInfo] = React.useState([]);
+    const [order, setOrder] = React.useState({
+        client_id: currentUserID,
+        clientAddress: '',
+        status: '',
+        totalCost: '',
+        paymentType: '',
+        products: [],
+    });
 
-    const currentUserID = params.userData.uid;
+
+    const selectAddress = (e) => {
+        // console.log(e);
+        let fullAddress = {
+            Street: e.Street,
+            City: e.City,
+            State: e.State,
+            PostalCode: e.PostalCode
+        }
+
+        setOrder({
+            ...order,
+            fullAddress: fullAddress,
+        })
+
+        console.log(order);
+    }
 
     React.useEffect(() => {
 
-        const getUserAddresses = async () => {
-            try {
-                const db = firebase.firestore();
-                const addressSnapshot = await db.collection('Addresses').where('client_id', '==', params.userData.uid).get()
-                    .then(snapshot => {
-                        snapshot.forEach(doc => {
-                            console.log(doc.data())
-                        })
-                    });
-            } catch (error) {
-                console.log(error);
-            }
+        let userAddresses = [];
+
+        try {
+            const db = firebase.firestore();
+            const addressColl = db.collection('Addresses');
+
+            const addressSnapshot = addressColl.where('client_id', '==', params.userData.uid).get()
+                .then(snapshot => {
+                    snapshot.docs.forEach(address => {
+                        let currentAddressID = address.id;
+                        let addrObj = { ...address.data(), ['id']: currentAddressID }
+
+                        userAddresses.push(addrObj);
+                        userAddresses.push(address.data());
+
+                        console.log(userAddresses);
+                    })
+                    setAddressInfo(userAddresses);
+                });
+
+        } catch (error) {
+            console.log(error);
         }
-
-        getUserAddresses();
-
+        // getUserAddresses();
     }, [params])
 
     return (
@@ -69,7 +102,20 @@ export default function CheckOut(params) {
                                             </TableRow>
                                         </TableHead>
                                         <TableBody>
-
+                                            {addressInfo.map(e =>
+                                                <TableRow>
+                                                    <TableCell>
+                                                        {e.Street}, {e.City}, {e.State}, {e.PostalCode}
+                                                    </TableCell>
+                                                    <TableCell>
+                                                        <Button onClick={() => {
+                                                            selectAddress(e);
+                                                        }} variant='contained'>
+                                                            Enviar aquí
+                                                        </Button>
+                                                    </TableCell>
+                                                </TableRow>
+                                            )}
                                         </TableBody>
                                     </Table>
                                 </CardContent>
