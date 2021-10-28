@@ -18,11 +18,11 @@ export default function Navbar(params) {
         <>
         {params.userData.admin ? 
         (
-            <Box sx={{ flexGrow: 1 }}>
-            <AppBar position="static">
-                <Toolbar>
-                    <Typography variant="h5" component="div" sx={{ flexGrow: 1 }}>
-                        Farmacias Sanate (Tienda)
+            <Box sx={{ flexGrow: 1}}>
+            <AppBar position="static" sx={{background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)'}} >
+                <Toolbar >
+                    <Typography variant="h5" component="div" sx={{ flexGrow: 1, fontWeight: 'bolder' }}>
+                        Farmacias Sanate (Tienda {params.userData.displayName})
                     </Typography>
                     <Toolbar>
                         <Button color='warning' href='/' variant='contained'>Home</Button>

@@ -10,6 +10,7 @@ import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { Box } from "@mui/material";
+import { Divider } from "@mui/material";
 
 export default function InventoryCards(props){
     
@@ -63,25 +64,30 @@ export default function InventoryCards(props){
         <>
         {loading ? (<p>Loading...</p>) : 
         (
-        <div style={{height: '100px'}}>
+        <Box sx={{ display: 'flex',  flexWrap: 'wrap', justifyContent: 'center'}}>
         {inventario.map(entry => (
-            <Card key={entry.product.Name} sx={{maxWidth: 345}}>
+            <Card key={entry.product.Name} sx={{maxWidth: 325, margin: 1.5}}>
                 <CardMedia
                     component="img"
                     image={entry.product.Img}
                     height="200"
+                    sx={{objectFit: 'contain'}}
                 />
-                <CardContent>
+                <Divider />
+                <CardContent sx={{background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)'}}>
                     <Typography gutterBottom variant="h5" component="div">
                     {entry.product.Name}
                     </Typography>
                     <Typography variant="body2" color="text.secondary">
                     Cantidad: {entry.quantity}
                     </Typography>
+                    <Typography variant="body2" color="text.secondary">
+                    Precio Base: {entry.product.Price}.00 MXN
+                    </Typography>
                 </CardContent>
             </Card>
         ))}
-        </div>)}
+        </Box>)}
         
         </>
     )
