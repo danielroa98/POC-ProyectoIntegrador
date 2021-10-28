@@ -21,6 +21,7 @@ export default function CheckOut(params) {
     const [showStore, setShowStore] = React.useState(false);
 
     const [addressInfo, setAddressInfo] = React.useState([]);
+    
     const [order, setOrder] = React.useState({
         client_id: currentUserID,
         clientAddress: '',
