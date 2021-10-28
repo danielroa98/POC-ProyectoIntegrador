@@ -14,6 +14,9 @@ import ReactCreditCard from '../components/ReactCreditCard';
 
 export default function CheckOut(params) {
     const firebase = getFirebase();
+    const db = firebase.firestore();
+    const addressColl = db.collection('Addresses');
+
     const currentUserID = params.userData.uid;
 
     const [showCard, setShowCard] = React.useState(false);
@@ -21,6 +24,8 @@ export default function CheckOut(params) {
     const [showStore, setShowStore] = React.useState(false);
 
     const [addressInfo, setAddressInfo] = React.useState([]);
+    const [addressTest, setAddressTest] = React.useState([]);
+
     const [order, setOrder] = React.useState({
         client_id: currentUserID,
         clientAddress: '',
@@ -50,11 +55,28 @@ export default function CheckOut(params) {
 
     React.useEffect(() => {
 
+        const fetchData = async() => {
+            let userAddresses = [];
+
+            try {
+                const snapshot = addressColl.where('client_id', '==', currentUserID).get()
+                    .then(docs => {
+                        docs.forEach(doc => {
+                            const data = doc.data();
+                            console.log(data);
+                            setAddressTest(data);
+                            console.log(addressTest);
+                        })
+                    })
+            } catch (error) {
+                
+            }
+        }
+
         let userAddresses = [];
 
         try {
-            const db = firebase.firestore();
-            const addressColl = db.collection('Addresses');
+            
 
             const addressSnapshot = addressColl.where('client_id', '==', params.userData.uid).get()
                 .then(snapshot => {
@@ -74,6 +96,7 @@ export default function CheckOut(params) {
             console.log(error);
         }
         // getUserAddresses();
+        fetchData();
     }, [params])
 
     return (

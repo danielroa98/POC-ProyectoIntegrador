@@ -13,7 +13,7 @@ import getFirebase from '../firebase/configFirebase';
 import { BrowserRouter as Router, Link } from 'react-router-dom';
 
 export default function Navbar(params) {
-    
+
     return (
         <>
         {params.userData.admin ? 
@@ -30,40 +30,56 @@ export default function Navbar(params) {
                         <Button color='warning' href='/' variant='contained'>Transferir</Button>
                         <Button variant='contained' color='secondary' sx={{margin:2}}>Mis Ordenes</Button>
                         {/* <Button variant='contained' color='error'>Logout 2</Button>{' '}
+            {params.userData.admin ?
+                (
+                    <Box sx={{ flexGrow: 1 }}>
+                        <AppBar position="static">
+                            <Toolbar>
+                                <Typography variant="h5" component="div" sx={{ flexGrow: 1 }}>
+                                    Farmacias Sanate (Tienda)
+                                </Typography>
+                                <Toolbar>
+                                    <Button color='warning' href='/' variant='contained'>Home</Button>
+                                    &nbsp;
+                                    <Button color='warning' href='/' variant='contained'>Transferir</Button>
+                                    <Button variant='contained' href='/my-orders' color='secondary' sx={{ margin: 2 }}>Mis Ordenes</Button>
+                                    {/* <Button variant='contained' color='error'>Logout 2</Button>{' '}
                         <Button variant='contained' color='error'>Logout 3</Button>{' '} */}
-                    </Toolbar>
-                    
-                    <Button variant='contained' color='error' href='/logout'>Logout</Button>
-                    <Button variant='contained' color='secondary' sx={{margin:2}}>{params.userData.displayName}</Button>
+                                </Toolbar>
 
-                </Toolbar>
-            </AppBar>
-        </Box>
-          )
-        :
-        (
-            <Box sx={{ flexGrow: 1 }}>
-            <AppBar position="static">
-                <Toolbar>
-                    <Typography variant="h5" component="div" sx={{ flexGrow: 1 }}>
-                        Farmacias Sanate (Usuario)
-                    </Typography>
-                    <Toolbar>
-                        <Button color='warning' href='/' variant='contained'>Home</Button>
-                        &nbsp;
-                        <Button color='secondary' href='/checkout' variant='contained'>Checkout</Button>
-                        {/* <Button variant='contained' color='error'>Logout 2</Button>{' '}
+                                <Button variant='contained' color='secondary' sx={{ margin: 2 }}>{params.userData.displayName}</Button>
+                                <Button variant='contained' color='error' href='/logout'>Logout</Button>
+
+                            </Toolbar>
+                        </AppBar>
+                    </Box>
+                )
+                :
+                (
+                    <Box sx={{ flexGrow: 1 }}>
+                        <AppBar position="static">
+                            <Toolbar>
+                                <Typography variant="h5" component="div" sx={{ flexGrow: 1 }}>
+                                    Farmacias Sanate (Usuario)
+                                </Typography>
+                                <Toolbar>
+                                    <Button color='warning' href='/' variant='contained'>Home</Button>
+                                    &nbsp;
+                                    <Button color='secondary' href='/checkout' variant='contained'>Checkout</Button>
+                                    &nbsp;
+                                    <Button color='secondary' href='/my-orders' variant='contained'>Mis Ordenes</Button>
+                                    {/* <Button variant='contained' color='error'>Logout 2</Button>{' '}
                         <Button variant='contained' color='error'>Logout 3</Button>{' '} */}
-                    </Toolbar>
-                    
-                    <Button variant='contained' color='error' href='/logout'>Logout</Button>
-                    <Button variant='contained' color='secondary' sx={{margin:2}}>{params.userData.displayName}</Button>
+                                </Toolbar>
 
-                </Toolbar>
-            </AppBar>
-        </Box>
-            
-            )}
+                                <Button variant='contained' color='secondary' sx={{ margin: 2 }}>{params.userData.displayName}</Button>
+                                <Button variant='contained' color='error' href='/logout'>Logout</Button>
+
+                            </Toolbar>
+                        </AppBar>
+                    </Box>
+
+                )}
         </>
     );
 }
