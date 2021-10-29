@@ -14,6 +14,8 @@ import AddMedicine from "./AddMedicine";
 import Orders from "./Orders";
 import Transfers from "./Transfers";
 
+import { CarritoProvider } from "../contexts/Carrito";
+
 export default function SiteIndex(props) {
     const firebase = getFirebase();
 
@@ -82,22 +84,26 @@ export default function SiteIndex(props) {
         <Router>
             {props.currentUser ? (
                 <Switch>
-                    <Route exact path={'/'} >
-                        <Home
-                            firebase={props.firebase}
-                            signUpSubmit={signUpSubmit}
-                            history={props.history}
-                            userData={props.userData}
-                        />
-                    </Route>
-                    <Route exact path={'/checkout'}>
-                        <CheckOut
-                            firebase={props.firebase}
-                            signUpSubmit={signUpSubmit}
-                            history={props.history}
-                            userData={props.userData}
-                        />
-                    </Route>
+                        <Route exact path={'/'} >
+                            <CarritoProvider>
+                                <Home
+                                    firebase={props.firebase}
+                                    signUpSubmit={signUpSubmit}
+                                    history={props.history}
+                                    userData={props.userData}
+                                />
+                            </CarritoProvider>
+                        </Route>
+                        <Route exact path={'/checkout'}>
+                            <CarritoProvider>
+                                <CheckOut
+                                    firebase={props.firebase}
+                                    signUpSubmit={signUpSubmit}
+                                    history={props.history}
+                                    userData={props.userData}
+                                />
+                            </CarritoProvider>
+                        </Route>
                     <Route path={'/add_medicine'}>
                         <AddMedicine
                             signOut={signOut}

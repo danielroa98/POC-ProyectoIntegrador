@@ -96,11 +96,13 @@ export default function Transfers(params) {
 
         const fetchStores = async () => {
             try {
-                const snapshot = tiendasCollection.get()
+                console.log(params.userData.uid)
+                const snapshot = await tiendasCollection.where('client_id', '!=', params.userData.uid).get()
                     .then(docs => {
                         docs.forEach(doc => {
                             const storesData = doc.data();
                             console.log(storesData);
+                            console.log(params)
                             setAllStores(
                                 allStores => [
                                     ...allStores,

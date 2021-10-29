@@ -32,7 +32,7 @@ function App(props) {
           await setUser({
             displayName: authUser.displayName,
             uid: authUser.uid,
-            admin: authUser.uid === 'wuqxWFjxfZU0Qapp1rsYSW9YPj92' || authUser.uid === 'O6wB0HtxVbaPvkmtnECMer8I14v2'
+            admin: authUser.uid === 'wuqxWFjxfZU0Qapp1rsYSW9YPj92'
           });
         } else {
           getCurrentUser(null);

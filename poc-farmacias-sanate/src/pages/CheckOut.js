@@ -10,7 +10,8 @@ import {
     TableCell, 
     TableContainer, 
     TableHead, 
-    TableRow 
+    TableRow,
+    Typography 
 } from '@mui/material';
 
 import './CheckOut.css'
@@ -23,6 +24,8 @@ import Navbar from '../components/Navbar';
 import PayAtHomeForm from '../components/PayAtHomeForm';
 import PayAtStore from '../components/PayAtStore';
 import ReactCreditCard from '../components/ReactCreditCard';
+
+import { CarritoContext } from '../contexts/Carrito';
 
 export default function CheckOut(params) {
     const firebase = getFirebase();
@@ -38,6 +41,8 @@ export default function CheckOut(params) {
     const [addressInfo, setAddressInfo] = React.useState([]);
     const [addressTest, setAddressTest] = React.useState([]);
     const [loading, setLoading] = React.useState(true);
+
+    const [carrito, setCarrito] = React.useContext(CarritoContext)
 
     const [order, setOrder] = React.useState({
         client_id: currentUserID,
@@ -67,7 +72,7 @@ export default function CheckOut(params) {
     }
 
     React.useEffect(() => {
-
+        console.log(carrito)
         const fetchData = async() => {
 
             try {
@@ -179,6 +184,17 @@ export default function CheckOut(params) {
                     >
                         <CardContent>
                             <h2>Mi pedido</h2>
+                            {carrito.map((entry) => (
+                                <Card>
+                                    <CardContent>
+                                        <Typography>{entry.product.Name}</Typography>
+                                        <Typography>Cantidad: {entry.cantidad}</Typography>
+                                        <Typography>Precio: {entry.product.Price} MXN</Typography>
+                                    </CardContent>
+                                </Card>
+                            )
+
+                            )}
                         </CardContent>
                     </Card>
                     <div className='accept-checkout'>
